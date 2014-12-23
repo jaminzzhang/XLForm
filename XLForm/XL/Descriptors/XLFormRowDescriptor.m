@@ -68,7 +68,7 @@
 
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
-    id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
+    id cellClass = self.cellClass ?: [formController.class cellClassesForRowDescriptorTypes][self.rowType];
     NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
     if ([cellClass isKindOfClass:[NSString class]]) {
         UITableViewCell<XLFormDescriptorCell> * reuseCell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
