@@ -24,8 +24,11 @@
 // THE SOFTWARE.
 
 #import "XLFormBaseCell.h"
+#import "UIView+XLFormAdditions.h"
 
 @implementation XLFormBaseCell
+@synthesize detailTextLabel = _detailTextLabel;
+
 
 - (id)init
 {
@@ -36,6 +39,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.textMinWidth = floor(self.bounds.size.width/3) + 8;
         [self configure];
     }
     return self;
@@ -49,6 +54,29 @@
 }
 
 
+- (UILabel *)detailTextLabel
+{
+    
+    if (_detailTextLabel) return _detailTextLabel;
+    _detailTextLabel = [UILabel autolayoutView];
+    _detailTextLabel.textAlignment = NSTextAlignmentCenter;
+    _detailTextLabel.textColor = [XLFormConfig valueDefaultColor];
+    _detailTextLabel.frame = self.contentView.bounds;
+    [_detailTextLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+    [self.contentView addSubview:_detailTextLabel];
+    return _detailTextLabel;
+}
+
+- (CGFloat)textMinWidth
+{
+    if (_textMinWidth == -1) {
+        return floor(self.bounds.size.width/3);
+    }
+    
+    return _textMinWidth;
+}
+
+
 - (void)configure
 {
     //override
@@ -57,7 +85,9 @@
 - (void)update
 {
     // override
+    self.detailTextLabel.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [XLFormConfig valueDefaultColor];
 }
+
 
 -(XLFormViewController *)formViewController
 {
@@ -69,6 +99,30 @@
         responder = [responder nextResponder];
     }
     return nil;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGRect textFrame = self.textLabel.frame;
+    if (textFrame.size.width < self.textMinWidth) {
+        textFrame.size.width = self.textMinWidth;
+        self.textLabel.frame = textFrame;
+    } else {
+        CGFloat maxWidth = self.contentView.frame.size.width - textFrame.origin.x - 40;
+        if (textFrame.size.width > maxWidth) {
+            textFrame.size.width = maxWidth;
+            self.textLabel.frame = textFrame;
+        }
+        
+    }
+    
+    if (nil != self.detailTextLabel) {
+        CGRect detailFrame = self.detailTextLabel.frame;
+        detailFrame.origin.x = self.textLabel.frame.origin.x + self.textLabel.frame.size.width + 8;
+        detailFrame.size.width = self.contentView.bounds.size.width - detailFrame.origin.x - 4;
+        self.detailTextLabel.frame = detailFrame;
+    }
 }
 
 

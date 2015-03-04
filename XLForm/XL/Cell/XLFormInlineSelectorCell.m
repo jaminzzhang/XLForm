@@ -67,8 +67,8 @@
     self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.detailTextLabel.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

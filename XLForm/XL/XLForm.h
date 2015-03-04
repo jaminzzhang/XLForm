@@ -30,6 +30,9 @@
 #import "XLFormSectionDescriptor.h"
 #import "XLFormRowDescriptor.h"
 
+//Config
+#import "XLFormConfig.h"
+
 // Categories
 #import "NSObject+XLFormAdditions.h"
 

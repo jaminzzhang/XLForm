@@ -36,7 +36,7 @@
 
 @implementation XLFormSegmentedCell
 
-NSString * const kText = @"text";
+NSString * const kXLFormText = @"text";
 
 @synthesize textLabel = _textLabel;
 @synthesize segmentedControl = _segmentedControl;
@@ -49,7 +49,7 @@ NSString * const kText = @"text";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.segmentedControl];
     [self.contentView addSubview:self.textLabel];
-    [self.textLabel addObserver:self forKeyPath:kText options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self.textLabel addObserver:self forKeyPath:kXLFormText options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.segmentedControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -59,14 +59,14 @@ NSString * const kText = @"text";
     self.textLabel.text = self.rowDescriptor.title;
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 #pragma mark - KVO
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object == self.textLabel && [keyPath isEqualToString:kText]){
+    if (object == self.textLabel && [keyPath isEqualToString:kXLFormText]){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self.contentView setNeedsUpdateConstraints];
         }
@@ -88,7 +88,7 @@ NSString * const kText = @"text";
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    [_textLabel setFont:[XLFormConfig defaultFont]];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [_textLabel setContentCompressionResistancePriority:500
                                             forAxis:UILayoutConstraintAxisHorizontal];
     return _textLabel;
@@ -170,7 +170,7 @@ NSString * const kText = @"text";
 
 -(void)dealloc
 {
-    [self.textLabel removeObserver:self forKeyPath:kText];
+    [self.textLabel removeObserver:self forKeyPath:kXLFormText];
 }
 
 @end

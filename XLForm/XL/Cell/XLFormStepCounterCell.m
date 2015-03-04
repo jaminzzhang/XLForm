@@ -61,7 +61,7 @@
                                                                           CGRectGetHeight(stepperControl.frame))];
     
     currentStepValue.textAlignment = NSTextAlignmentCenter;
-    currentStepValue.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    currentStepValue.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     currentStepValue.textColor = self.defaultTintColor;
 
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -79,7 +79,7 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
     self.stepControl.enabled = !self.rowDescriptor.disabled;
     [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;

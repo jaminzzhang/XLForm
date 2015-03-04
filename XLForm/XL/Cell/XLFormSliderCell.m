@@ -62,7 +62,7 @@
 	
     [super update];
     self.textField.text = self.rowDescriptor.title;
-    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textField.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.slider.value = [self.rowDescriptor.value floatValue];
     self.slider.enabled = !self.rowDescriptor.disabled;
     self.textField.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];

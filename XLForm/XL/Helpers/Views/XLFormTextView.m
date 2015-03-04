@@ -25,6 +25,7 @@
 
 
 #import "XLFormTextView.h"
+#import "XLFormConfig.h"
 
 @implementation XLFormTextView
 
@@ -36,6 +37,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if((self = [super initWithFrame:frame])){
+        self.backgroundColor = [UIColor clearColor];
         self.contentInset = UIEdgeInsetsMake(0, -4, 0, 0);
         [self setPlaceholder:@""];
         [self setPlaceholderColor:[UIColor colorWithRed:.78 green:.78 blue:.80 alpha:1.0]];
@@ -77,7 +79,7 @@
             [self addSubview:_placeHolderLabel];
         }
         _placeHolderLabel.text = self.placeholder;
-        _placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _placeHolderLabel.font = [XLFormConfig defaultFont];//[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         [_placeHolderLabel sizeToFit];
         [self sendSubviewToBack:_placeHolderLabel];
     }

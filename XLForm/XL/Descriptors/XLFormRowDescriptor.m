@@ -51,8 +51,14 @@
         _cellStyle = UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         
+        [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"value"];
 }
 
 +(XLFormRowDescriptor *)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
@@ -152,6 +158,29 @@
     rowDescriptorCopy.selectorControllerClass = [self.selectorControllerClass copy];
     
     return rowDescriptorCopy;
+}
+
+
+//#pragma mark - Setter
+//- (void)setValueObsever:(id<XLFormRowDescriptorValueObsever>)valueObsever
+//{
+//    if (_valueObsever == valueObsever) {
+//        return;
+//    }
+//    
+//    _valueObsever = valueObsever;
+//}
+
+
+#pragma mark - KVO
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"value"]) {
+        id newValue = change[NSKeyValueChangeNewKey];
+        if (nil != newValue && [self.valueObsever respondsToSelector:@selector(formRowDescriptorValueDidChange:)]) {
+            [self.valueObsever formRowDescriptorValueDidChange:self];
+        }
+    }
 }
 
 

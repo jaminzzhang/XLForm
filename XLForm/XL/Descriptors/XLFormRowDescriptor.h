@@ -34,6 +34,13 @@
 @protocol XLFormValidatorProtocol;
 @class XLFormAction;
 
+@class XLFormRowDescriptor;
+@protocol XLFormRowDescriptorValueObsever <NSObject>
+
+- (void)formRowDescriptorValueDidChange:(XLFormRowDescriptor *)row;
+
+@end
+
 typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModeDefault = 0,
     XLFormPresentationModePush,
@@ -47,6 +54,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (readonly) NSString *rowType;
 @property NSString *title;
 @property (nonatomic) id value;
+@property (nonatomic, weak) id<XLFormRowDescriptorValueObsever> valueObsever;
 @property Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
 

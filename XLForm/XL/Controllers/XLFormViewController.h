@@ -42,6 +42,7 @@
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)deselectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)reloadFormRow:(XLFormRowDescriptor *)formRow;
+-(void)didChangeValueForRow:(XLFormRowDescriptor *)formRow;
 
 -(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters;
@@ -62,6 +63,8 @@
 
 @property XLFormDescriptor * form;
 @property IBOutlet UITableView * tableView;
+@property (nonatomic, strong) UIFont * defaultFont;
+@property (nonatomic, strong) UIColor * valueColor;
 
 -(id)initWithForm:(XLFormDescriptor *)form;
 -(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;
@@ -69,5 +72,8 @@
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 
 -(void)performFormSeletor:(SEL)selector withObject:(id)sender;
+
+
+
 
 @end

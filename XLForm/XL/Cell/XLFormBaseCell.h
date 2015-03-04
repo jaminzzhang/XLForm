@@ -25,6 +25,7 @@
 
 #import "XLFormDescriptorCell.h"
 #import "XLFormViewController.h"
+#import "XLFormConfig.h"
 #import <UIKit/UIKit.h>
 
 @class XLFormViewController;
@@ -33,7 +34,9 @@
 
 @interface XLFormBaseCell : UITableViewCell<XLFormDescriptorCell>
 
+@property (nonatomic, strong) UILabel * detailTextLabel;
 @property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
+@property (nonatomic, assign) CGFloat textMinWidth;
 
 -(XLFormViewController *)formViewController;
 

@@ -528,6 +528,10 @@
     NSIndexPath * currentIndexPath = [self.tableView indexPathForCell:cell];
     NSIndexPath * nextIndexPath = [self nextIndexPath:currentIndexPath];
     
+    if ([self respondsToSelector:@selector(didChangeValueForRow:)]) {
+        [self didChangeValueForRow:cell.rowDescriptor];
+    }
+    
     if (nextIndexPath){
         XLFormRowDescriptor * nextFormRow = [self.form formRowAtIndex:nextIndexPath];
         UITableViewCell<XLFormDescriptorCell> * nextCell = (UITableViewCell<XLFormDescriptorCell> *)[nextFormRow cellForFormController:self];
